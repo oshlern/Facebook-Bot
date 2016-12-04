@@ -5,7 +5,7 @@ A chat bot for Facebook Messenger as a part of a [hackathon at Parisoma](https:/
 
 ### Definitions:
 
-**Sentence** `:=` unit of speech, the kind of thing we get as input or output
+**Sentence** `:=` A unit of speech, the kind of thing we get as input or output.
 
 **Vectorize** `:=` Convert sentence to vector based on the trained vector space representation
 
