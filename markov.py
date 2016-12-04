@@ -111,10 +111,17 @@ class Markov:
         numWords = len(text)
         responseLength = max(1, numWords/5 + random.randint(-2,4))
         print "TEXT", text
-        randSpeaker = random.choice(self.words.keys())
-        randSpeaker = "othello"
+        speaker = random.choice(self.words.keys())
+        speaker = "othello"
+        index = 1
+        while not text[-index] in self.words[speaker].keys() and index < numWords:
+            index += 1
+        if index == numWords:
+            lastWord = "~null"
+        else:
+            lastWord = text[-index]
         # print "INFO"
         # print self.words[randSpeaker], "\n"
         # print self.lineLengths[randSpeaker], "\n"
         # print responseLength, text[-1]
-        return makeSpeech(self.words[randSpeaker], self.lineLengths[randSpeaker], responseLength, text[-1])[0]
+        return makeSpeech(self.words[speaker], self.lineLengths[speaker], responseLength, lastWord)[0]
