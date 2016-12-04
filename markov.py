@@ -1,4 +1,4 @@
-import random
+import random, re
 
 # Extend to more than just one word
 # makeSpeech() and generateText are the only important functions
@@ -101,12 +101,13 @@ class Markov:
         return makeDialogue(self.words, self.lineLengths, self.speechLengths, self.speakers, sceneLengths, actLengths, playLength)
 
     def generateResponse(self, text):
+        if len(text) == 1:
+            text = text[0]
         if type(text) == str:
-            text.split()
-            # print text
+            text = text.split()
             for i in range(len(text)):
                 if not re.search(r'\w', text[i]):
-                    text.splice(i)
+                    text = text.splice(i)
 
         numWords = len(text)
         responseLength = max(1, numWords/5 + random.randint(-2,4))
