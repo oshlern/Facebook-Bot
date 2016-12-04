@@ -64,12 +64,11 @@ def makeLine(words, lineLength, lastWord):
 
 def makeSpeech(words, lineLengths, numLines, lastWord):
     text = ''
-    lineLength = '~null'
+    lastLineLength = '~null'
     word = lastWord
     for i in xrange(numLines):
-        lineLength = pickItem(lineLengths, lineLength)
-        while lineLength == 1:
-            lineLength = pickItem(lineLengths, lineLength)
+        lastLineLength = pickItem(lineLengths, lastLineLength)
+        lineLength = max(2, lastLineLength + random.randint(1, 3))
         line, word = makeLine(words, lineLength, word)
         text += printLine(line)
     return text + '\n', word
@@ -120,7 +119,7 @@ class Markov:
         if index == numWords:
             lastWord = "~null"
         else:
-            lastWord = text[-index]
+            lastWord = re.sub(text[-index], '.,?!', '')
         # print "INFO"
         # print self.words[randSpeaker], "\n"
         # print self.lineLengths[randSpeaker], "\n"
