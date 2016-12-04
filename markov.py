@@ -68,6 +68,8 @@ def makeSpeech(words, lineLengths, numLines, lastWord):
     word = lastWord
     for i in xrange(numLines):
         lineLength = pickItem(lineLengths, lineLength)
+        while lineLength == 1:
+            lineLength = pickItem(lineLengths, lineLength)
         line, word = makeLine(words, lineLength, word)
         text += printLine(line)
     return text + '\n', word
@@ -99,16 +101,20 @@ class Markov:
         return makeDialogue(self.words, self.lineLengths, self.speechLengths, self.speakers, sceneLengths, actLengths, playLength)
 
     def generateResponse(self, text):
-        # text.split(' ')
-        # for i in range(len(text)):
-        #     if not re.search(r'\w', text[i])
+        if type(text) == str:
+            text.split()
+            # print text
+            for i in range(len(text)):
+                if not re.search(r'\w', text[i]):
+                    text.splice(i)
+
         numWords = len(text)
-        responseLength = max(1, numWords + random.randint(-1,2))
-        print text
+        responseLength = max(1, numWords/5 + random.randint(-2,4))
+        print "TEXT", text
         randSpeaker = random.choice(self.words.keys())
         randSpeaker = "othello"
         # print "INFO"
         # print self.words[randSpeaker], "\n"
         # print self.lineLengths[randSpeaker], "\n"
         # print responseLength, text[-1]
-        return makeSpeech(self.words[randSpeaker], self.lineLengths[randSpeaker], responseLength, text[-1])
+        return makeSpeech(self.words[randSpeaker], self.lineLengths[randSpeaker], responseLength, text[-1])[0]

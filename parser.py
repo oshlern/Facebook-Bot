@@ -6,10 +6,10 @@ def openData(doc):
     return text
 
 def cleanText(text):
-    text = re.sub('xxx:', '', text)
+    # text = re.sub('xxx:', '', text)
     text = re.sub('\n\n\n', '\n', text)
     # stageText = re.findall(r'\[.*\]')
-    text = re.sub(r'\[.*\]', '~stage', text)
+    text = re.sub(r'\[.*\]', '', text) #stage instructions
     return text
 
 def tally(item, superset): # for word, speaker, lineLengths etc.
