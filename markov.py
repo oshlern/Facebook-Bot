@@ -90,6 +90,25 @@ def makeDialogue(words, lineLengths, speechLengths, speakers, sceneLengths, actL
                 text += printSpeaker(speaker) + speechText
     return text
 
-def generateText(info):
-    words, lineLengths, speechLengths, speakers = info
-    return makeDialogue(words, lineLengths, speechLengths, speakers, [1,1], [1], 1)
+class Markov:
+    def __init__(self, info):
+        self.words, self.lineLengths, self.speechLengths, self.speakers = info
+        # print self.lineLengths
+
+    def generateText(self, sceneLengths=[1], actLengths=[1], playLength=1):
+        return makeDialogue(self.words, self.lineLengths, self.speechLengths, self.speakers, sceneLengths, actLengths, playLength)
+
+    def generateResponse(self, text):
+        # text.split(' ')
+        # for i in range(len(text)):
+        #     if not re.search(r'\w', text[i])
+        numWords = len(text)
+        responseLength = max(1, numWords + random.randint(-1,2))
+        print text
+        randSpeaker = random.choice(self.words.keys())
+        randSpeaker = "othello"
+        # print "INFO"
+        # print self.words[randSpeaker], "\n"
+        # print self.lineLengths[randSpeaker], "\n"
+        # print responseLength, text[-1]
+        return makeSpeech(self.words[randSpeaker], self.lineLengths[randSpeaker], responseLength, text[-1])

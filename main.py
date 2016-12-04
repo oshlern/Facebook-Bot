@@ -1,5 +1,6 @@
-import re, random, parser, markov
+import re, random, parser, markov, sys
 from parser import Parser
+from markov import Markov
 
 # CURRENTLY JUST LEFTOVER GARBAGE
 
@@ -14,7 +15,8 @@ from parser import Parser
 
 othello = Parser('Text/othello')
 othello.parseText()
-print markov.generateText(othello.exportInfo())
+generator = Markov(othello.exportInfo())
+print generator.generateResponse(sys.argv)
 # print words['emilia']['world']
 # print text['words']['iago']['is']
 # print speechLengths
