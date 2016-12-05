@@ -68,7 +68,7 @@ def makeSpeech(words, lineLengths, numLines, lastWord):
     word = lastWord
     for i in xrange(numLines):
         lastLineLength = pickItem(lineLengths, lastLineLength)
-        lineLength = max(2, lastLineLength + random.randint(1, 3))
+        lineLength = max(3, lastLineLength + random.randint(2, 7))
         line, word = makeLine(words, lineLength, word)
         text += printLine(line)
     return text + '\n', word
@@ -109,7 +109,7 @@ class Markov:
                     text = text.splice(i)
 
         numWords = len(text)
-        responseLength = max(1, numWords/5 + random.randint(-2,4))
+        responseLength = max(2, numWords/3 + random.randint(-1,2))
         print "TEXT", text
         speaker = random.choice(self.words.keys())
         speaker = "othello"
