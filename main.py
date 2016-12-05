@@ -17,6 +17,7 @@ othello = Parser('Text/othello')
 othello.parseText()
 generator = Markov(othello.exportInfo())
 print generator.generateResponse(sys.argv[1:])
+# print generator.generateText()
 # print words['emilia']['world']
 # print text['words']['iago']['is']
 # print speechLengths

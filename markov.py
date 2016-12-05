@@ -1,7 +1,7 @@
 import random, re
 
 # Extend to more than just one word
-# makeSpeech() and generateText are the only important functions
+# generateResponse() and generateText are the only important functions
 
 def findTotal(weights):
     total = 0
@@ -89,6 +89,7 @@ def makeDialogue(words, lineLengths, speechLengths, speakers, sceneLengths, actL
                 speechText, words[speaker]['~last'] = makeSpeech(words[speaker], lineLengths[speaker], speechLength, words[speaker]['~last'])
                 speechLengths[speaker]['~last'] = speechLength
                 text += printSpeaker(speaker) + speechText
+    text += '\nEND'
     return text
 
 class Markov:
@@ -96,7 +97,7 @@ class Markov:
         self.words, self.lineLengths, self.speechLengths, self.speakers = info
         # print self.lineLengths
 
-    def generateText(self, sceneLengths=[1], actLengths=[1], playLength=1):
+    def generateText(self, sceneLengths=[3,3,5,6,7,2,4], actLengths=[2,2,3,4], playLength=3):
         return makeDialogue(self.words, self.lineLengths, self.speechLengths, self.speakers, sceneLengths, actLengths, playLength)
 
     def generateResponse(self, text):
@@ -111,8 +112,10 @@ class Markov:
         numWords = len(text)
         responseLength = max(2, numWords/3 + random.randint(-1,2))
         print "TEXT", text
-        speaker = random.choice(self.words.keys())
-        speaker = "othello"
+        # speaker = random.choice(self.words.keys())
+        speaker = random.choice(["othello", "desdemona", "iago", "iago", "iago", "othello"])
+        # speaker = "othello"
+        print speaker
         index = 1
         while not text[-index] in self.words[speaker].keys() and index < numWords:
             index += 1
@@ -120,8 +123,4 @@ class Markov:
             lastWord = "~null"
         else:
             lastWord = re.sub(text[-index], '.,?!', '')
-        # print "INFO"
-        # print self.words[randSpeaker], "\n"
-        # print self.lineLengths[randSpeaker], "\n"
-        # print responseLength, text[-1]
-        return makeSpeech(self.words[speaker], self.lineLengths[speaker], responseLength, lastWord)[0]
+        return "Response by: " + speaker + "\n" + makeSpeech(self.words[speaker], self.lineLengths[speaker], responseLength, lastWord)[0]
